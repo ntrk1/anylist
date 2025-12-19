@@ -1,0 +1,81 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Item {
+  id: ID!
+  name: String!
+  quantity: Float!
+  unidadMedida: String
+}
+
+type User {
+  id: ID!
+  fullName: String!
+  email: String!
+  roles: [String!]!
+  isOnline: Boolean!
+  editBy: User
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+type Query {
+  AllItems: [Item!]!
+  findOne(id: ID!): Item!
+  findAll(roles: [ValidRoles!] = []): [User!]!
+  finOne(id: ID!): User!
+  revalidate: AuthResponse!
+}
+
+enum ValidRoles {
+  user
+  admin
+  superUser
+}
+
+type Mutation {
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: ID!): Item!
+  blockUser(id: ID!): User!
+  updateUser(id: UpdateUserInput!): User!
+  singUp(singupInput: SingUpInput!): AuthResponse!
+  singIn(singinInput: SingInInput!): AuthResponse!
+}
+
+input CreateItemInput {
+  name: String!
+  quantity: Float!
+  unidadMedida: String
+}
+
+input UpdateItemInput {
+  name: String
+  quantity: Float
+  unidadMedida: String
+  id: ID!
+}
+
+input UpdateUserInput {
+  email: String
+  fullName: String
+  password: String
+  id: ID!
+  roles: [ValidRoles!]
+  isActive: Boolean
+}
+
+input SingUpInput {
+  email: String!
+  fullName: String!
+  password: String!
+}
+
+input SingInInput {
+  email: String!
+  password: String!
+}
